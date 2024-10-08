@@ -1,4 +1,2 @@
-# No external dependencies required for this project
-# This file is here for potential future requirements
-# Example of pinned dependency:
-# requests==2.25.1
+pyarrow
+polars

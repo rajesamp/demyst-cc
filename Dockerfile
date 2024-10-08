@@ -1,41 +1,30 @@
-# Stage 1: Builder stage
-FROM python:3.9-alpine AS builder
+# Stage 1: Build stage
+FROM python:3.8-slim as builder
 
-# Set work directory
-WORKDIR /app
+# Set the working directory
+WORKDIR /usr/src/app
 
-# Install build dependencies
-RUN apk add --no-cache gcc musl-dev
+# Copy the requirements file into the container
+COPY requirements.txt ./
 
-# Copy only the requirements file first to leverage Docker cache
-COPY requirements.txt .
-
-# Install dependencies
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy only the necessary Python files
-COPY main.py fixed_width_generator.py fixed_width_parser.py ./
+# Copy the current directory contents into the container at /usr/src/app
+COPY . .
 
 # Stage 2: Final stage
-FROM python:3.9-alpine
+FROM python:3.8-slim
 
-# Set work directory
-WORKDIR /app
+# Set the working directory
+WORKDIR /usr/src/app
 
-# Copy installed dependencies from builder stage
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+# Copy the installed dependencies from the builder stage
+COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 
-# Copy Python files from builder stage
-COPY --from=builder /app/*.py ./
+# Copy the application code
+COPY . .
 
-# Copy other necessary files
-COPY spec.json run.sh ./
-
-# Make run.sh executable
-RUN chmod +x run.sh
-
-# Set environment variable
-ENV PYTHONUNBUFFERED=1
-
-# Run run.sh when the container launches
-CMD ["./run.sh"]
+# Run the script to generate the CSV file
+CMD ["python", "generate_csv.py"]
