@@ -127,3 +127,39 @@ If an error occurs, the application will print an error message and exit with a 
 
 I have used multi-build approach to cut short image size and it's currently at 60Megs
 ![image](https://github.com/user-attachments/assets/897d7988-02ea-444e-921f-0f30d4332c57)
+
+# Problem 2: Data Processing
+
+This directory contains the solution for Problem 2 of the data engineering challenge, which involves generating a CSV file with random data and anonymizing specific columns.
+
+## Overview
+
+### Tasks
+1. **Generate a CSV File:**
+   - Create a CSV file containing `first_name`, `last_name`, `address`, and `date_of_birth` fields with random data.
+
+2. **Anonymize the Data:**
+   - Process the CSV file to anonymize the data in the `first_name`, `last_name`, and `address` columns.
+
+3. **Scalability:**
+   - Ensure the solution can handle a 2GB CSV file efficiently.
+   - Demonstrate scalability for larger datasets using Apache Arrow and Polars.
+
+## Directory Structure
+
+```plaintext
+/problem2
+    Dockerfile
+    generate_csv.py
+    anonymize_data.py
+    README.md
+
+## Tools used:
+1. **Apache Arrow and Polars**
+   - Apache Arrow to read the CSV file into an Arrow Table, and then convert it to a Polars DataFrame for further processing
+   Use Apache Arrow to load the CSV file into an Arrow Table.
+   Convert the Arrow Table to a Polars DataFrame.
+   Anonymize the specified columns.
+   Save the anonymized data back to a CSV file.
+
+
