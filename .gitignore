@@ -1,0 +1,4 @@
+output_fixed_width.txt
+output.csv
+__pycache__
+*.pyc
