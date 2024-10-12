@@ -1,7 +1,7 @@
 import argparse
 import sys
-from fixed_width_generator import generate_fixed_width_file
-from fixed_width_parser import parse_fixed_width_to_csv
+from problem_1.src.fixed_width_generator import generate_fixed_width_file
+from problem_1.src.fixed_width_parser import parse_fixed_width_to_csv
 
 def process_fixed_width_data(spec_file, fixed_width_output, csv_output, num_rows=100):
     print(f"Generating fixed-width file with {num_rows} rows...")
